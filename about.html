@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About FileFlow</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <img src="images\filetracking.png" alt="FileFlow Logo" class="h-8">
+                <span class="font-bold text-xl">File Tracking</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="../index.html" class="hover:underline">Home</a>
+                <a href="../about.html" class="hover:underline">About</a>
+                <a href="../contact.html" class="hover:underline">Contact</a>
+                <a href="login.html" class="bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-100">Login</a>
+            </div>
+            <button class="md:hidden" id="mobile-menu-button">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="../index.html" class="block px-3 py-2 hover:bg-blue-500 rounded">Home</a>
+                <a href="../about.html" class="block px-3 py-2 hover:bg-blue-500 rounded">About</a>
+                <a href="../contact.html" class="block px-3 py-2 hover:bg-blue-500 rounded">Contact</a>
+                <a href="login.html" class="block px-3 py-2 bg-white text-blue-600 rounded">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Navigation (Same as index.html) -->
+    <!-- ... -->
+
+    <!-- Hero Section -->
+    <section class="py-16 bg-gradient-to-r from-blue-500 to-blue-700 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">About File Tracking</h1>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Revolutionizing document management for modern organizations.</p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold mb-6">Our Mission</h2>
+                    <p class="text-gray-600 mb-4">File Tracking was created to solve the common challenges organizations face with document management. Our mission is to provide a simple yet powerful solution for tracking, managing, and forwarding files across departments.</p>
+                    <p class="text-gray-600">Traditional document management systems are often too complex or lack the specific features needed for efficient file tracking. File Tracking fills this gap with its intuitive interface and focused feature set.</p>
+                </div>
+
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold mb-6">Key Features</h2>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-3">File Tracking</h3>
+                            <p class="text-gray-600">Know exactly where your files are at all times with our comprehensive tracking system. See who has accessed each file and when.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-3">Workflow Automation</h3>
+                            <p class="text-gray-600">Streamline your document approval processes with automated workflows and notifications.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-3">Role-Based Access</h3>
+                            <p class="text-gray-600">Control who can view, edit, and forward files with our granular permission system.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-3">Audit Trail</h3>
+                            <p class="text-gray-600">Maintain a complete history of all file activities for compliance and reporting.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold mb-6">Technology Stack</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                 <img src="images/HTML.png" alt="HTML5" class="rounded w-20 h-20 object-cover mx-auto" />
+
+                            </div>
+                            <p class="font-medium">HTML5</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                <img src="images/CSS.png" alt="CSS" class="rounded w-20 h-20 object-cover mx-auto" />
+
+                            </div>
+                            <p class="font-medium"> CSS</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                 <img src="images/JS.png" alt="JS" class="rounded-full w-20 h-20 object-cover mx-auto" />
+
+                            </div>
+                            <p class="font-medium">JavaScript</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                 <img src="images\MYSQL.png" alt="MySQL" class="rounded-full w-20 h-20 object-cover mx-auto" />
+
+                            </div>
+                            <p class="font-medium">MySQL</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="text-3xl font-bold mb-6">The Team</h2>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="bg-gray-50 p-6 rounded-lg text-center">
+                            <div class="bg-blue-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
+                             <img src="images\team\SIR ABID.jpg" alt="Muhammad Abid" class="rounded-full w-20 h-20 object-cover mx-auto" />
+
+                            </div>
+                            <h3 class="text-xl font-semibold">Dr. Muhammad Abid</h3>
+                            <p class="text-gray-500 mb-2">Supervisor</p>
+                            <p class="text-gray-600">With 20 years of experience in 
+                                web development, Dr. Abid architected the File Tracking system.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg text-center">
+                            <div class="bg-blue-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
+                                <img src="images\team\SHAFI.JPG" alt="Shafi Ullah" class="rounded-full w-20 h-20 object-cover mx-auto" />
+                            </div>
+                            <h3 class="text-xl font-semibold">Shafi Ullah</h3>
+                            <p class="text-gray-500 mb-2">Frontend Developer</p>
+                            <p class="text-gray-600">Shafi designed the intuitive 
+                                interface that makes File Tracking easy to use for everyone.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg text-center">
+                            <div class="bg-blue-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
+                             <img src="images\team\HAFSAKHAN.jpg" alt="Hafsa Khan" class="rounded-full w-20 h-20 object-cover mx-auto" />
+                            </div>
+                            <h3 class="text-xl font-semibold">Hafsa Khan</h3>
+                            <p class="text-gray-500 mb-2">Composing and Editing</p>
+                            <p class="text-gray-600">Hafsa ensures File Tracking meets the 
+                                real-world needs of our users.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Same as index.html) -->
+    <!-- ... -->
+
+    <script src="js/script.js"></script>
+</body>
+</html>

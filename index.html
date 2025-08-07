@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Tracking System</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+     rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <img src="images\filetracking.png" alt="File Tracking Logo" class="h-8">
+                <span class="font-bold text-xl">File Tracking</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html" class="hover:underline">Home</a>
+                <a href="about.html" class="hover:underline">About</a>
+                <a href="contact.html" class="hover:underline">Contact</a>
+                <a href="login.html" class="bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-100">Login</a>
+            </div>
+            <button class="md:hidden" id="mobile-menu-button">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 hover:bg-blue-500 rounded">Home</a>
+                <a href="about.html" class="block px-3 py-2 hover:bg-blue-500 rounded">About</a>
+                <a href="contact.html" class="block px-3 py-2 hover:bg-blue-500 rounded">Contact</a>
+                <a href="login.html" class="block px-3 py-2 bg-white text-blue-600 rounded">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-16 bg-gradient-to-r from-blue-500 to-blue-700 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">File Tracking & Management System</h1>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Streamline your document workflows with File Tracking's intuitive web-based system for tracking, forwarding, and managing files.</p>
+            <div class="space-x-4">
+                <a href="login.html" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100">Get Started</a>
+                <a href="about.html" class="border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Key Features</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md">
+                    <div class="text-blue-600 mb-4">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">File Generation</h3>
+                    <p class="text-gray-600">Easily create and upload new files with metadata for better organization and tracking.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md">
+                    <div class="text-blue-600 mb-4">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">File Forwarding</h3>
+                    <p class="text-gray-600">Seamlessly forward files to colleagues with tracking and notification features.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md">
+                    <div class="text-blue-600 mb-4">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Real-time Tracking</h3>
+                    <p class="text-gray-600">Monitor file status and movement through your organization's workflow.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">What Our Users Say</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <p class="text-gray-600 italic mb-4">"FileTracking has transformed how we handle documents. The tracking system saves us hours every week."</p>
+                    <div class="flex items-center">
+                        <div class="bg-blue-100 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <span class="text-blue-600 font-semibold">AW</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Ali Wazir</h4>
+                            <p class="text-gray-500 text-sm">Operations Manager</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <p class="text-gray-600 italic mb-4">"The intuitive interface made adoption easy across our entire team. No training needed!"</p>
+                    <div class="flex items-center">
+                        <div class="bg-blue-100 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <span class="text-blue-600 font-semibold">AW</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Asmat Wazir</h4>
+                            <p class="text-gray-500 text-sm">IT Director</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-16 bg-blue-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Ready to streamline your document workflow?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Join organizations that have improved efficiency with FileTracking.</p>
+            <a href="login.html" class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100">Get Started Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <img src="images\filetracking.png" alt="FileTracking Logo" class="h-8">
+                        <span class="font-bold text-xl">FileTracking</span>
+                    </div>
+                    <p class="text-gray-400">Efficient file tracking and management for modern organizations.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white">About</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="login.html" class="text-gray-400 hover:text-white">Login</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Features</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white">File Tracking</a></li>
+                        <li><a href="files_management.html" class="text-gray-400 hover:text-white">Document Management</a></li>
+                        <li><a href="generate_file.html" class="text-gray-400 hover:text-white">Workflow Automation</a></li>
+                        <li><a href="security.html" class="text-gray-400 hover:text-white">Security</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400">info@filetracking.com</li>
+                        <li class="text-gray-400">+92 (3029809653)</li>
+                        <li class="text-gray-400">Real-time file tracking and management</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 FileTracking. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

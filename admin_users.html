@@ -1,0 +1,669 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - FileFlow</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <img src="images\filetracking.png" alt="FileFlow Logo" class="h-8">
+                <span class="font-bold text-xl">File Tracking</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="../index.html" class="hover:underline">Home</a>
+                <a href="../about.html" class="hover:underline">About</a>
+                <a href="../contact.html" class="hover:underline">Contact</a>
+                <a href="login.html" class="bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-100">Login</a>
+            </div>
+            <button class="md:hidden" id="mobile-menu-button">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="../index.html" class="block px-3 py-2 hover:bg-blue-500 rounded">Home</a>
+                <a href="../about.html" class="block px-3 py-2 hover:bg-blue-500 rounded">About</a>
+                <a href="../contact.html" class="block px-3 py-2 hover:bg-blue-500 rounded">Contact</a>
+                <a href="login.html" class="block px-3 py-2 bg-white text-blue-600 rounded">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Admin Navigation -->
+    <div class="flex h-screen">
+        <!-- Sidebar (Same as admin_dashboard.html) -->
+        <!-- ... -->
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <!-- Top Bar -->
+            <header class="bg-white shadow-sm p-4">
+                <div class="flex justify-between items-center">
+                    <h1 class="text-2xl font-semibold">User Management</h1>
+                    <div class="flex items-center space-x-4">
+                        <button onclick="toggleModal('addUserModal')" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            <span>Add User</span>
+                        </button>
+                        <!-- Search and user profile -->
+                        <!-- ... -->
+                    </div>
+                </div>
+            </header>
+
+            <!-- Users Content -->
+            <main class="p-6">
+                <!-- Filters -->
+                <div class="bg-white p-4 rounded-lg shadow mb-6">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
+                        <div class="flex space-x-4">
+                            <select id="roleFilter" class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">All Roles</option>
+                                <option value="admin">Administrator</option>
+                                <option value="manager">Department Manager</option>
+                                <option value="user">Standard User</option>
+                            </select>
+                            <select id="deptFilter" class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">All Departments</option>
+                                <option value="finance">Finance</option>
+                                <option value="hr">HR</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="operations">Operations</option>
+                                <option value="it">IT</option>
+                            </select>
+                            <select id="statusFilter" class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">All Statuses</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <div class="relative">
+                            <input type="text" id="userSearch" placeholder="Search users..." class="pl-10 pr-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <svg class="w-5 h-5 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Table -->
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CNIC/Username</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Active</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody" class="bg-white divide-y divide-gray-200">
+                            <!-- User data will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 rounded-b-lg">
+                    <div class="flex-1 flex justify-between sm:hidden">
+                        <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            Previous
+                        </a>
+                        <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            Next
+                        </a>
+                    </div>
+                    <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                        <div>
+                            <p class="text-sm text-gray-700">
+                                Showing <span class="font-medium">1</span> to <span class="font-medium">3</span> of <span class="font-medium">3</span> results
+                            </p>
+                        </div>
+                        <div>
+                            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                                <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                    <span class="sr-only">Previous</span>
+                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                                <a href="#" aria-current="page" class="z-10 bg-blue-50 border-blue-500 text-blue-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                                    1
+                                </a>
+                                <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                                    2
+                                </a>
+                                <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                                    3
+                                </a>
+                                <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                    <span class="sr-only">Next</span>
+                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div id="addUserModal" class="fixed inset-0 overflow-y-auto hidden modal-overlay">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Add New User</h3>
+                    <form id="addUserForm" class="space-y-4">
+                        <div>
+                            <label for="newUserName" class="block text-gray-700 mb-2">Full Name</label>
+                            <input type="text" id="newUserName" name="newUserName" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <div>
+                            <label for="newUserCNIC" class="block text-gray-700 mb-2">CNIC Number (Username)</label>
+                            <input type="text" id="newUserCNIC" name="newUserCNIC" pattern="[0-9]{5}-[0-9]{7}-[0-9]{1}" placeholder="XXXXX-XXXXXXX-X" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            <p class="text-xs text-gray-500 mt-1">Format: XXXXX-XXXXXXX-X</p>
+                        </div>
+                        <div>
+                            <label for="newUserEmail" class="block text-gray-700 mb-2">Email</label>
+                            <input type="email" id="newUserEmail" name="newUserEmail" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="newUserDepartment" class="block text-gray-700 mb-2">Department</label>
+                            <select id="newUserDepartment" name="newUserDepartment" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">Select Department</option>
+                                <option value="finance">Finance</option>
+                                <option value="hr">Human Resources</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="operations">Operations</option>
+                                <option value="it">IT</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="newUserRole" class="block text-gray-700 mb-2">Role</label>
+                            <select id="newUserRole" name="newUserRole" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">Select Role</option>
+                                <option value="admin">Administrator</option>
+                                <option value="manager">Department Manager</option>
+                                <option value="user">Standard User</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="newUserPassword" class="block text-gray-700 mb-2">Temporary Password</label>
+                            <input type="password" id="newUserPassword" name="newUserPassword" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            <div class="password-strength mt-1 h-1 w-full bg-gray-200 rounded">
+                                <div id="passwordStrengthBar" class="h-1 rounded transition-all duration-300"></div>
+                            </div>
+                            <p id="passwordStrengthText" class="text-xs mt-1"></p>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="sendWelcomeEmail" name="sendWelcomeEmail" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                            <label for="sendWelcomeEmail" class="ml-2 block text-sm text-gray-700">Send welcome email with login instructions</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" onclick="addNewUser()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        Add User
+                    </button>
+                    <button type="button" onclick="toggleModal('addUserModal')" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div id="editUserModal" class="fixed inset-0 overflow-y-auto hidden modal-overlay">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Edit User</h3>
+                    <form id="editUserForm" class="space-y-4">
+                        <input type="hidden" id="editUserId">
+                        <div>
+                            <label for="editUserName" class="block text-gray-700 mb-2">Full Name</label>
+                            <input type="text" id="editUserName" name="editUserName" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">CNIC Number (Username)</label>
+                            <input type="text" id="editUserCNIC" disabled class="w-full px-3 py-2 border border-gray-300 rounded bg-gray-100">
+                        </div>
+                        <div>
+                            <label for="editUserEmail" class="block text-gray-700 mb-2">Email</label>
+                            <input type="email" id="editUserEmail" name="editUserEmail" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="editUserDepartment" class="block text-gray-700 mb-2">Department</label>
+                            <select id="editUserDepartment" name="editUserDepartment" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">Select Department</option>
+                                <option value="finance">Finance</option>
+                                <option value="hr">Human Resources</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="operations">Operations</option>
+                                <option value="it">IT</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="editUserRole" class="block text-gray-700 mb-2">Role</label>
+                            <select id="editUserRole" name="editUserRole" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">Select Role</option>
+                                <option value="admin">Administrator</option>
+                                <option value="manager">Department Manager</option>
+                                <option value="user">Standard User</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="editUserStatus" name="editUserStatus" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                            <label for="editUserStatus" class="ml-2 block text-sm text-gray-700">Active User</label>
+                        </div>
+                        <div>
+                            <label for="editUserPassword" class="block text-gray-700 mb-2">Reset Password (leave blank to keep current)</label>
+                            <input type="password" id="editUserPassword" name="editUserPassword" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <div class="password-strength mt-1 h-1 w-full bg-gray-200 rounded">
+                                <div id="editPasswordStrengthBar" class="h-1 rounded transition-all duration-300"></div>
+                            </div>
+                            <p id="editPasswordStrengthText" class="text-xs mt-1"></p>
+                        </div>
+                    </form>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" onclick="saveUserChanges()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        Save Changes
+                    </button>
+                    <button type="button" onclick="toggleModal('editUserModal')" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+    <script>
+        // Sample user data (in a real app, this would come from a backend API)
+        let users = [
+            {
+                id: 1,
+                name: "Jane Doe",
+                cnic: "12345-6789012-3",
+                email: "jane.doe@company.com",
+                department: "finance",
+                role: "manager",
+                status: "active",
+                lastActive: new Date().toISOString(),
+                position: "Finance Manager"
+            },
+            {
+                id: 2,
+                name: "John Smith",
+                cnic: "23456-7890123-4",
+                email: "john.smith@company.com",
+                department: "hr",
+                role: "user",
+                status: "active",
+                lastActive: new Date(Date.now() - 86400000).toISOString(), // yesterday
+                position: "HR Specialist"
+            },
+            {
+                id: 3,
+                name: "Sarah Miller",
+                cnic: "34567-8901234-5",
+                email: "sarah.miller@company.com",
+                department: "it",
+                role: "admin",
+                status: "active",
+                lastActive: new Date(Date.now() - 86400000 * 3).toISOString(), // 3 days ago
+                position: "IT Administrator"
+            }
+        ];
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderUsersTable();
+            setupEventListeners();
+            
+            // Password strength indicator for add user form
+            document.getElementById('newUserPassword').addEventListener('input', function() {
+                updatePasswordStrength(this.value, 'passwordStrengthBar', 'passwordStrengthText');
+            });
+            
+            // Password strength indicator for edit user form
+            document.getElementById('editUserPassword').addEventListener('input', function() {
+                updatePasswordStrength(this.value, 'editPasswordStrengthBar', 'editPasswordStrengthText');
+            });
+        });
+
+        function setupEventListeners() {
+            // Filter event listeners
+            document.getElementById('roleFilter').addEventListener('change', filterUsers);
+            document.getElementById('deptFilter').addEventListener('change', filterUsers);
+            document.getElementById('statusFilter').addEventListener('change', filterUsers);
+            document.getElementById('userSearch').addEventListener('input', filterUsers);
+        }
+
+        function filterUsers() {
+            const roleFilter = document.getElementById('roleFilter').value;
+            const deptFilter = document.getElementById('deptFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            const searchQuery = document.getElementById('userSearch').value.toLowerCase();
+            
+            const filteredUsers = users.filter(user => {
+                const matchesRole = !roleFilter || user.role === roleFilter;
+                const matchesDept = !deptFilter || user.department === deptFilter;
+                const matchesStatus = !statusFilter || user.status === statusFilter;
+                const matchesSearch = !searchQuery || 
+                    user.name.toLowerCase().includes(searchQuery) || 
+                    user.email.toLowerCase().includes(searchQuery) || 
+                    user.cnic.includes(searchQuery);
+                
+                return matchesRole && matchesDept && matchesStatus && matchesSearch;
+            });
+            
+            renderUsersTable(filteredUsers);
+        }
+
+        function renderUsersTable(usersToRender = users) {
+            const tbody = document.getElementById('usersTableBody');
+            tbody.innerHTML = '';
+            
+            if (usersToRender.length === 0) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td colspan="8" class="px-6 py-4 text-center text-gray-500">
+                        No users found matching your criteria
+                    </td>
+                `;
+                tbody.appendChild(tr);
+                return;
+            }
+            
+            // Map department and role values to display text and badge colors
+            const departmentMap = {
+                finance: { text: "Finance", badge: "bg-blue-100 text-blue-800" },
+                hr: { text: "Human Resources", badge: "bg-purple-100 text-purple-800" },
+                marketing: { text: "Marketing", badge: "bg-pink-100 text-pink-800" },
+                operations: { text: "Operations", badge: "bg-yellow-100 text-yellow-800" },
+                it: { text: "IT", badge: "bg-red-100 text-red-800" }
+            };
+            
+            const roleMap = {
+                admin: { text: "Administrator", badge: "bg-indigo-100 text-indigo-800" },
+                manager: { text: "Department Manager", badge: "bg-green-100 text-green-800" },
+                user: { text: "Standard User", badge: "bg-yellow-100 text-yellow-800" }
+            };
+            
+            const statusMap = {
+                active: { text: "Active", badge: "bg-green-100 text-green-800" },
+                inactive: { text: "Inactive", badge: "bg-gray-100 text-gray-800" }
+            };
+
+            usersToRender.forEach(user => {
+                const tr = document.createElement('tr');
+                tr.dataset.userId = user.id;
+                
+                // Format last active date
+                const lastActiveDate = new Date(user.lastActive);
+                const now = new Date();
+                const diffDays = Math.floor((now - lastActiveDate) / (1000 * 60 * 60 * 24));
+                
+                let lastActiveText;
+                if (diffDays === 0) {
+                    lastActiveText = "Today, " + lastActiveDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                } else if (diffDays === 1) {
+                    lastActiveText = "Yesterday, " + lastActiveDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                } else if (diffDays < 7) {
+                    lastActiveText = lastActiveDate.toLocaleDateString([], {weekday: 'long'}) + ", " + lastActiveDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                } else {
+                    lastActiveText = lastActiveDate.toLocaleDateString();
+                }
+                
+                tr.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-600 font-semibold">${getInitials(user.name)}</span>
+                            </div>
+                            <div class="ml-4">
+                                <div class="text-sm font-medium text-gray-900">${user.name}</div>
+                                <div class="text-sm text-gray-500">${user.position || ''}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">${user.cnic}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">${user.email || 'N/A'}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 py-1 text-xs font-semibold rounded-full ${(departmentMap[user.department] ? departmentMap[user.department].badge : '')}">${(departmentMap[user.department] ? departmentMap[user.department].text : user.department)}</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 py-1 text-xs font-semibold rounded-full ${(roleMap[user.role] ? roleMap[user.role].badge : '')}">${(roleMap[user.role] ? roleMap[user.role].text : user.role)}</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 py-1 text-xs font-semibold rounded-full ${(statusMap[user.status] ? statusMap[user.status].badge : '')}">${(statusMap[user.status] ? statusMap[user.status].text : user.status)}</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">${lastActiveText}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <button onclick="editUser('${user.id}')" class="text-blue-600 hover:text-blue-900 mr-3">Edit</button>
+                        ${user.status === 'active' ? 
+                            `<button onclick="toggleUserStatus('${user.id}', 'inactive')" class="text-red-600 hover:text-red-900">Deactivate</button>` : 
+                            `<button onclick="toggleUserStatus('${user.id}', 'active')" class="text-green-600 hover:text-green-900">Activate</button>`}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function getInitials(fullName) {
+            return fullName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2);
+        }
+
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.toggle('hidden');
+        }
+
+        function addNewUser() {
+            const form = document.getElementById('addUserForm');
+            const name = document.getElementById('newUserName').value.trim();
+            const cnic = document.getElementById('newUserCNIC').value.trim();
+            const email = document.getElementById('newUserEmail').value.trim();
+            const department = document.getElementById('newUserDepartment').value;
+            const role = document.getElementById('newUserRole').value;
+            const password = document.getElementById('newUserPassword').value;
+            const sendWelcomeEmail = document.getElementById('sendWelcomeEmail').checked;
+            
+            // Validate CNIC format (XXXXX-XXXXXXX-X)
+            const cnicRegex = /^[0-9]{5}-[0-9]{7}-[0-9]{1}$/;
+            if (!cnicRegex.test(cnic)) {
+                alert('Please enter a valid CNIC in the format XXXXX-XXXXXXX-X');
+                return;
+            }
+            
+            // Check if CNIC is already in use
+            if (users.some(user => user.cnic === cnic)) {
+                alert('This CNIC is already registered as a username');
+                return;
+            }
+            
+            if (!name || !cnic || !department || !role || !password) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Create new user object
+            const newUser = {
+                id: users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1,
+                name,
+                cnic,
+                email: email || null,
+                department,
+                role,
+                status: 'active',
+                lastActive: null,
+                position: '',
+                password: password // In a real app, this would be hashed
+            };
+            
+            // Add to users array
+            users.push(newUser);
+            
+            // Show success message
+            alert(`User ${name} (CNIC: ${cnic}) added successfully! ${sendWelcomeEmail ? 'Welcome email sent.' : ''}`);
+            
+            // Close modal and reset form
+            toggleModal('addUserModal');
+            form.reset();
+            
+            // Refresh table
+            renderUsersTable();
+        }
+
+        function editUser(userId) {
+            const user = users.find(u => u.id == userId);
+            if (!user) return;
+            
+            // Populate edit form
+            document.getElementById('editUserId').value = user.id;
+            document.getElementById('editUserName').value = user.name;
+            document.getElementById('editUserCNIC').value = user.cnic;
+            document.getElementById('editUserEmail').value = user.email || '';
+            document.getElementById('editUserDepartment').value = user.department;
+            document.getElementById('editUserRole').value = user.role;
+            document.getElementById('editUserStatus').checked = user.status === 'active';
+            
+            // Show modal
+            toggleModal('editUserModal');
+        }
+
+        function saveUserChanges() {
+            const userId = document.getElementById('editUserId').value;
+            const user = users.find(u => u.id == userId);
+            if (!user) return;
+            
+            // Update user data
+            user.name = document.getElementById('editUserName').value.trim();
+            user.email = document.getElementById('editUserEmail').value.trim() || null;
+            user.department = document.getElementById('editUserDepartment').value;
+            user.role = document.getElementById('editUserRole').value;
+            user.status = document.getElementById('editUserStatus').checked ? 'active' : 'inactive';
+            
+            // Update password if provided
+            const newPassword = document.getElementById('editUserPassword').value;
+            if (newPassword) {
+                user.password = newPassword; // In a real app, this would be hashed
+            }
+            
+            // Show success message
+            alert(`User ${user.name} updated successfully!`);
+            
+            // Close modal and reset form
+            toggleModal('editUserModal');
+            document.getElementById('editUserPassword').value = '';
+            
+            // Refresh table
+            renderUsersTable();
+        }
+
+        function toggleUserStatus(userId, newStatus) {
+            const user = users.find(u => u.id == userId);
+            if (!user) return;
+            
+            if (confirm(`Are you sure you want to ${newStatus === 'active' ? 'activate' : 'deactivate'} ${user.name}?`)) {
+                user.status = newStatus;
+                
+                // If deactivating, also set last active to now
+                if (newStatus === 'inactive') {
+                    user.lastActive = new Date().toISOString();
+                }
+                
+                // Show success message
+                alert(`User ${user.name} has been ${newStatus === 'active' ? 'activated' : 'deactivated'}`);
+                
+                // Refresh table
+                renderUsersTable();
+            }
+        }
+
+        function updatePasswordStrength(password, barId, textId) {
+            const strengthBar = document.getElementById(barId);
+            const strengthText = document.getElementById(textId);
+            
+            // Calculate password strength
+            let strength = 0;
+            let text = 'Very Weak';
+            let color = 'bg-red-500';
+            
+            if (password.length === 0) {
+                strengthBar.style.width = '0%';
+                strengthBar.className = 'h-1 rounded transition-all duration-300';
+                strengthText.textContent = '';
+                return;
+            }
+            
+            // Length check
+            if (password.length >= 8) strength += 1;
+            if (password.length >= 12) strength += 1;
+            
+            // Complexity checks
+            if (/[A-Z]/.test(password)) strength += 1; // uppercase
+            if (/[a-z]/.test(password)) strength += 1; // lowercase
+            if (/[0-9]/.test(password)) strength += 1; // numbers
+            if (/[^A-Za-z0-9]/.test(password)) strength += 1; // special chars
+            
+            // Determine strength level
+            if (strength <= 2) {
+                text = 'Weak';
+                color = 'bg-red-500';
+            } else if (strength <= 4) {
+                text = 'Moderate';
+                color = 'bg-yellow-500';
+            } else if (strength <= 6) {
+                text = 'Strong';
+                color = 'bg-green-500';
+            } else {
+                text = 'Very Strong';
+                color = 'bg-green-600';
+            }
+            
+            // Update UI
+            const width = Math.min(100, (strength / 6) * 100);
+            strengthBar.style.width = `${width}%`;
+            strengthBar.className = `h-1 rounded transition-all duration-300 ${color}`;
+            strengthText.textContent = `Password Strength: ${text}`;
+            strengthText.className = `text-xs mt-1 ${color.replace('bg-', 'text-')}`;
+        }
+    </script>
+</body>
+</html>

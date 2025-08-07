@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backup Policies</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        header {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            color: white;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        .backup-schedule {
+            background-color: #e7f5fe;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #f4f4f4;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Backup Procedures</h1>
+    </header>
+    
+    <nav>
+        <a href="general.html">General</a>
+        <a href="security.html">Security</a>
+        <a href="backups.html">Backups</a>
+    </nav>
+    
+    <section>
+        <h2>Backup Strategy</h2>
+        <p>Our comprehensive backup strategy ensures that your data is protected against loss or corruption.</p>
+        
+        <div class="backup-schedule">
+            <h3>Backup Schedule</h3>
+            <p>We maintain multiple backup copies with the following schedule:</p>
+            
+            <table>
+                <tr>
+                    <th>Backup Type</th>
+                    <th>Frequency</th>
+                    <th>Retention Period</th>
+                    <th>Storage Location</th>
+                </tr>
+                <tr>
+                    <td>Full Backup</td>
+                    <td>Weekly</td>
+                    <td>4 weeks</td>
+                    <td>Off-site and on-site</td>
+                </tr>
+                <tr>
+                    <td>Incremental Backup</td>
+                    <td>Daily</td>
+                    <td>7 days</td>
+                    <td>On-site</td>
+                </tr>
+                <tr>
+                    <td>Critical Data Backup</td>
+                    <td>Real-time</td>
+                    <td>30 days</td>
+                    <td>Off-site secure</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+    
+    <section>
+        <h2>Recovery Procedures</h2>
+        <p>In the event of data loss, we follow these recovery procedures:</p>
+        <ol>
+            <li>Identify the scope and nature of data loss</li>
+            <li>Determine the most recent unaffected backup</li>
+            <li>Restore data in an isolated environment</li>
+            <li>Verify data integrity</li>
+            <li>Deploy restored data to production</li>
+            <li>Document the incident and recovery process</li>
+        </ol>
+    </section>
+    
+    <section>
+        <h2>Backup Verification</h2>
+        <p>We regularly verify our backup integrity through:</p>
+        <ul>
+            <li>Monthly test restores</li>
+            <li>Checksum validation</li>
+            <li>Automated backup health monitoring</li>
+            <li>Annual disaster recovery drills</li>
+        </ul>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 File Tracking. All rights reserved.</p>
+    </footer>
+</body>
+</html>
